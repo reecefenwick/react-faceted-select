@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TypeaheadChip should call onRemove when delete button clicked 1`] = `
+<div
+  className="typeahead-chip"
+>
+  <span
+    className="chip-category"
+  >
+    Name
+  </span>
+  <span
+    className="chip-operator"
+  >
+    contains
+  </span>
+  <span
+    className="chip-value"
+  >
+    John
+  </span>
+  <a
+    className="typeahead-chip-close"
+    href="#"
+    onClick={[Function]}
+  >
+    ×
+  </a>
+</div>
+`;

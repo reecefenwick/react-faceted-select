@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TypeaheadOption should render TypeaheadOption 1`] = `
+<li
+  className=""
+>
+  <a
+    className="typeahead-option"
+    href="#"
+    id="typeahead-option"
+    onClick={[Function]}
+  >
+    John Doe
+  </a>
+</li>
+`;

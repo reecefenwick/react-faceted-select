@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TypeaheadSelector should render TypeaheadSelector 1`] = `
+<ul
+  className="typeahead-selector"
+>
+  <TypeaheadOption
+    classes={Object {}}
+    customClasses={Object {}}
+    hover={false}
+    key="Jane Doe"
+    onClickOption={[Function]}
+    result="Jane Doe"
+  >
+    Jane Doe
+  </TypeaheadOption>
+  <TypeaheadOption
+    classes={Object {}}
+    customClasses={Object {}}
+    hover={false}
+    key="John Doe"
+    onClickOption={[Function]}
+    result="John Doe"
+  >
+    John Doe
+  </TypeaheadOption>
+</ul>
+`;

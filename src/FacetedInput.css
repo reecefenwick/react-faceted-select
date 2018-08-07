@@ -1,0 +1,148 @@
+.faceted-input {
+  width:100%;
+
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding:10px;
+  font-size: 90%;
+  display:table;
+}
+
+.faceted-input:first-child {
+  padding-left: 0;
+  padding-top:0;
+  padding-bottom:0;
+}
+
+.faceted-input .chip-collection {
+  display: table-cell;
+}
+
+.faceted-input .typeahead {
+  overflow:auto;
+  display:block;
+}
+
+.faceted-input .typeahead-chip {
+  display: block;
+  float:left;
+
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+
+  margin:3px;
+  padding:5px;
+}
+
+.faceted-input .chip-operator {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+.faceted-input .chip-value {
+  font-weight: bold;
+}
+
+.faceted-input .typeahead-chip-close {
+  float: right;
+  font-size: 17px;
+  font-weight: bold;
+  line-height: 14px;
+  color: #000;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fff;
+  filter: alpha(opacity=30);
+  opacity: .3;
+  margin-left: 0.5em;
+}
+
+.faceted-input .typeahead-chip-close:focus,
+.faceted-input .typeahead-chip-close:hover {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  filter: alpha(opacity=60);
+  opacity: .6;
+}
+
+.filter-input-group {
+
+  overflow:auto;
+  display:block;
+
+  margin:3px;
+  padding:5px;
+}
+
+.filter-input-group .filter-category,
+.filter-input-group .filter-operator,
+.filter-input-group .filter-value {
+  overflow:auto;
+  display: block;
+  float:left;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.faceted-input .typeahead input {
+  outline:0;
+  border:0px;
+  width:100%;
+}
+
+.faceted-input .typeahead input:focus {outline:0;}
+
+.faceted-input ul.typeahead-selector {
+  z-index:100;
+  position:absolute;
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  background-color:#fff;
+  border: 1px solid #999;
+  width:200px;
+  max-height:200px;
+  overflow-y:auto;
+
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.33);
+}
+
+.faceted-input ul.typeahead-selector li {
+  z-index:9999;
+  border-bottom: 1px solid #ccc;
+}
+
+.faceted-input ul.typeahead-selector li.header {
+  font-weight: bold;
+  padding:5px;
+}
+
+
+.faceted-input ul.typeahead-selector li a {
+  color: #000;
+  text-decoration: none;
+  padding:5px;
+  width:100%;
+  display:block;
+  border-bottom: 0;
+}
+
+.faceted-input ul.typeahead-selector li a:hover,
+.faceted-input ul.typeahead-selector .hover a {
+  text-decoration: none;
+  background-color: #eee;
+}
+
+.faceted-input .rdt{
+  position: absolute;
+}
+
+.faceted-input .rdtDay{
+  cursor: pointer;
+}
+
+.faceted-input .rdtDay:hover{
+  background: #eee;
+}
