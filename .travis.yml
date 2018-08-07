@@ -1,0 +1,11 @@
+language: node_js
+node_js: 10
+sudo: false
+install:
+  - npm install
+
+script:
+  - npm run-script lint || travis_terminate 1;
+  - npm test || travis_terminate 1;
+  - npm run-script build || travis_terminate 1;
+  - npm run-script coveralls || travis_terminate 1;

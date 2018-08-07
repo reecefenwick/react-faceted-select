@@ -1,0 +1,85 @@
+{
+  "name": "react-faceted-input",
+  "version": "0.0.1",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development",
+    "lint": "echo TODO",
+    "test": "jest --coverage --env=jsdom",
+    "transpile": "babel src -d dist --copy-files",
+    "build": "webpack --mode production",
+    "deploy": "gh-pages -d examples/dist",
+    "coveralls": "cat coverage/lcov.info | coveralls",
+    "publish-demo": "npm run build && npm run deploy",
+    "prepublishOnly": "npm run transpile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reecefenwick/react-faceted-input.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Reece Fenwick",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reecefenwick/react-faceted-input/issues"
+  },
+  "homepage": "https://github.com/reecefenwick/react-faceted-input#readme",
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "fuzzy": "^0.1.3",
+    "moment": "^2.22.2",
+    "prop-types": "^15.6.2",
+    "react-datetime": "^2.15.0",
+    "react-onclickoutside": "^6.7.1"
+  },
+  "peerDependencies": {
+    "react": "^16.x",
+    "react-dom": "^16.x"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "coveralls": "^3.0.2",
+    "css-loader": "^1.0.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.4",
+    "html-webpack-plugin": "^3.2.0",
+    "jest": "^23.4.2",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.16.4",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    },
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "testURL": "http://localhost/",
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "setupFiles": [
+      "./src/setupTests.js"
+    ]
+  }
+}
