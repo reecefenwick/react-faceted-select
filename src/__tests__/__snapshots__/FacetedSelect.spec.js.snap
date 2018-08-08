@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FacetedSelect.js should suggest options for keys 1`] = `
+exports[`FacetedSelect should suggest options for keys 1`] = `
 <StateManager
   closeMenuOnSelect={false}
   components={
@@ -22,18 +22,18 @@ exports[`FacetedSelect.js should suggest options for keys 1`] = `
     Array [
       Object {
         "getSuggestions": [Function],
-        "label": "Capture Process Name",
-        "value": "Capture Process Name",
+        "label": "First Name",
+        "value": "First Name",
       },
       Object {
         "getSuggestions": [Function],
-        "label": "Flow",
-        "value": "Flow",
+        "label": "Last Name",
+        "value": "Last Name",
       },
       Object {
         "getSuggestions": undefined,
-        "label": "Capture Correlation ID",
-        "value": "Capture Correlation ID",
+        "label": "Description",
+        "value": "Description",
       },
     ]
   }
@@ -42,7 +42,7 @@ exports[`FacetedSelect.js should suggest options for keys 1`] = `
 />
 `;
 
-exports[`FacetedSelect.js should suggest values for selected key 1`] = `
+exports[`FacetedSelect should suggest values for selected key 1`] = `
 <StateManager
   closeMenuOnSelect={false}
   components={
@@ -55,7 +55,7 @@ exports[`FacetedSelect.js should suggest values for selected key 1`] = `
   defaultValue={null}
   filterOption={[Function]}
   formatCreateLabel={[Function]}
-  inputValue="Capture Process Name:"
+  inputValue="First Name:"
   isClearable={false}
   isMulti={true}
   onChange={[Function]}
@@ -63,22 +63,31 @@ exports[`FacetedSelect.js should suggest values for selected key 1`] = `
   options={
     Array [
       Object {
-        "label": "GI-PI-Claims",
+        "label": "John",
         "originalOption": Object {
           "getSuggestions": [Function],
-          "label": "Capture Process Name",
+          "label": "First Name",
           "type": "textoption",
         },
-        "value": "GI-PI-Claims",
+        "value": "John",
       },
       Object {
-        "label": "Life-Claims-RetailClaims",
+        "label": "Jane",
         "originalOption": Object {
           "getSuggestions": [Function],
-          "label": "Capture Process Name",
+          "label": "First Name",
           "type": "textoption",
         },
-        "value": "Life-Claims-RetailClaims",
+        "value": "Jane",
+      },
+      Object {
+        "label": "Joe",
+        "originalOption": Object {
+          "getSuggestions": [Function],
+          "label": "First Name",
+          "type": "textoption",
+        },
+        "value": "Joe",
       },
     ]
   }

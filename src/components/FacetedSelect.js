@@ -3,6 +3,15 @@ import PropTypes from 'prop-types';
 import {components} from 'react-select';
 import CreatableSelect from 'react-select/lib/Creatable';
 
+/*
+Constants for 'actions' associated with onChange in react-select
+ */
+const ReactSelectActions = {
+    SELECT_OPTION: 'select-option',
+    CREATE_OPTION: 'create-option',
+    REMOVE_VAL: 'remove-value',
+    POP_VALUE: 'pop-value'
+};
 const FILTER_SEPARATOR = ':';
 
 class FacetedSelect extends React.Component {
@@ -22,14 +31,14 @@ class FacetedSelect extends React.Component {
     static propTypes = {
         options: PropTypes.arrayOf(PropTypes.shape({
             label: PropTypes.string.isRequired,
-            type: PropTypes.string.isRequired, // TODO RF - May be redundant
+            type: PropTypes.string.isRequired, // TODO RF - Not currently used (needed for dates tho)
             getSuggestions: PropTypes.func
         })).isRequired
     };
 
     state = {
         inputValue: '',
-        value: []
+        selectedValues: []
     };
 
     buildOptions = () => {
@@ -64,28 +73,26 @@ class FacetedSelect extends React.Component {
 
     handleChange = (selectedValues, meta) => {
         const {inputValue} = this.state;
-        // TODO RF - handle meta-action "create-option"
         const inputHasSeparator = inputValue && inputValue.includes(FILTER_SEPARATOR);
-        if (meta.action === 'remove-value' || meta.action === 'pop-value') {
+        // TODO RF - create-option with no input separator
+        if (meta.action === ReactSelectActions.REMOVE_VAL || meta.action === ReactSelectActions.POP_VALUE) {
             this.setState({
-                value: selectedValues
+                selectedValues: selectedValues
             });
-        } else if ((meta.action === 'select-option' || meta.action === 'create-option') && inputHasSeparator) {
+        } else if ((meta.action === ReactSelectActions.SELECT_OPTION || meta.action === ReactSelectActions.CREATE_OPTION) && inputHasSeparator) {
             // selected a suggested value
             const newSelectedValue = selectedValues[selectedValues.length - 1];
-            if (meta.action === 'create-option') {
-                // No originalOption available
-                newSelectedValue.label = `${newSelectedValue.label}`;
-                newSelectedValue.value = `${newSelectedValue.value}`;
+            if (meta.action === ReactSelectActions.CREATE_OPTION) {
+                // No originalOption available - don't modify newSelectedValue
             } else {
-                newSelectedValue.label = `${newSelectedValue.originalOption.label}: ${newSelectedValue.label}`;
-                newSelectedValue.value = `${newSelectedValue.originalOption.value}: ${newSelectedValue.value}`;
+                newSelectedValue.label = `${newSelectedValue.originalOption.label}${FILTER_SEPARATOR}${newSelectedValue.label}`;
+                newSelectedValue.value = `${newSelectedValue.originalOption.selectedValues}${FILTER_SEPARATOR}${newSelectedValue.selectedValues}`;
             }
             // TODO RF - Call parent component (prop method)
             this.setState({
-                value: selectedValues
+                selectedValues: selectedValues
             });
-        } else if (meta.action === 'select-option' && !inputHasSeparator) {
+        } else if (meta.action === ReactSelectActions.SELECT_OPTION && !inputHasSeparator) {
             // selected a suggested key
             const selectedOption = selectedValues[selectedValues.length - 1];
             this.setState({inputValue: `${selectedOption.label}:`})
@@ -113,7 +120,7 @@ class FacetedSelect extends React.Component {
     render() {
         const options = this.buildOptions();
 
-        const {inputValue, value} = this.state;
+        const {inputValue, selectedValues} = this.state;
 
         return (
             <CreatableSelect
@@ -129,7 +136,7 @@ class FacetedSelect extends React.Component {
                 options={options}
                 onInputChange={this.handleInputChange}
                 inputValue={inputValue}
-                value={value}
+                value={selectedValues}
                 formatCreateLabel={(inputValue) => inputValue}
             />
         )
