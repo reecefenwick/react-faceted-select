@@ -2,7 +2,7 @@
   "name": "react-faceted-select",
   "version": "0.0.1",
   "description": "",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development",
     "lint": "echo TODO",

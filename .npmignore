@@ -1,4 +1,7 @@
 src
+__mocks__
+coverage
+node_modules
 examples
 .babelrc
 .gitignore
