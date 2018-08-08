@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FacetedSelect.js should export FacetedSelect 1`] = `
+<StateManager
+  closeMenuOnSelect={false}
+  components={
+    Object {
+      "Input": [Function],
+    }
+  }
+  defaultInputValue=""
+  defaultMenuIsOpen={false}
+  defaultValue={null}
+  filterOption={[Function]}
+  inputValue=""
+  isClearable={false}
+  isMulti={true}
+  onChange={[Function]}
+  onInputChange={[Function]}
+  options={
+    Array [
+      Object {
+        "getSuggestions": [Function],
+        "label": "Capture Process Name",
+        "value": "Capture Process Name",
+      },
+      Object {
+        "getSuggestions": [Function],
+        "label": "Flow",
+        "value": "Flow",
+      },
+      Object {
+        "getSuggestions": undefined,
+        "label": "Capture Correlation ID",
+        "value": "Capture Correlation ID",
+      },
+    ]
+  }
+  value={Array []}
+/>
+`;

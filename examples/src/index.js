@@ -20,7 +20,6 @@ const getFlowSuggestions = () => {
 
 const App = () => (
     <FacetedSelect
-        placeholder="Search..."
         options={[
             { 
                 label:"Capture Process Name", 
