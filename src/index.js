@@ -1,3 +1,3 @@
-import FacetedInput from './FacetedInput';
+import FacetedInput from "./FacetedInput";
 
 export { FacetedInput }
