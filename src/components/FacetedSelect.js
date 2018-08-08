@@ -30,6 +30,7 @@ class FacetedSelect extends React.Component {
 
     static propTypes = {
         options: PropTypes.arrayOf(PropTypes.shape({
+            // TODO RF - Control if multiple entries for an option can be input? e.g. 2 x "First Name"
             label: PropTypes.string.isRequired,
             type: PropTypes.string.isRequired, // TODO RF - Not currently used (needed for dates tho)
             getSuggestions: PropTypes.func
