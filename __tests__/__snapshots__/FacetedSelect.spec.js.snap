@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FacetedSelect should suggest options for keys 1`] = `
+<StateManager
+  closeMenuOnSelect={false}
+  components={
+    Object {
+      "Input": [Function],
+    }
+  }
+  defaultInputValue=""
+  defaultMenuIsOpen={false}
+  defaultValue={null}
+  filterOption={[Function]}
+  formatCreateLabel={[Function]}
+  inputValue=""
+  isClearable={false}
+  isMulti={true}
+  onChange={[Function]}
+  onInputChange={[Function]}
+  options={
+    Array [
+      Object {
+        "getSuggestions": [Function],
+        "label": "First Name",
+        "value": "First Name",
+      },
+      Object {
+        "getSuggestions": [Function],
+        "label": "Last Name",
+        "value": "Last Name",
+      },
+      Object {
+        "getSuggestions": undefined,
+        "label": "Description",
+        "value": "Description",
+      },
+    ]
+  }
+  placeholder="Search..."
+  value={Array []}
+/>
+`;
+
+exports[`FacetedSelect should suggest values for selected key 1`] = `
+<StateManager
+  closeMenuOnSelect={false}
+  components={
+    Object {
+      "Input": [Function],
+    }
+  }
+  defaultInputValue=""
+  defaultMenuIsOpen={false}
+  defaultValue={null}
+  filterOption={[Function]}
+  formatCreateLabel={[Function]}
+  inputValue="First Name:"
+  isClearable={false}
+  isMulti={true}
+  onChange={[Function]}
+  onInputChange={[Function]}
+  options={
+    Array [
+      Object {
+        "label": "John",
+        "originalOption": Object {
+          "getSuggestions": [Function],
+          "label": "First Name",
+          "type": "textoption",
+        },
+        "value": "John",
+      },
+      Object {
+        "label": "Jane",
+        "originalOption": Object {
+          "getSuggestions": [Function],
+          "label": "First Name",
+          "type": "textoption",
+        },
+        "value": "Jane",
+      },
+      Object {
+        "label": "Joe",
+        "originalOption": Object {
+          "getSuggestions": [Function],
+          "label": "First Name",
+          "type": "textoption",
+        },
+        "value": "Joe",
+      },
+    ]
+  }
+  placeholder="Search..."
+  value={Array []}
+/>
+`;

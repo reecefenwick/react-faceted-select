@@ -1,14 +1,19 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.FacetedInput = undefined;
+exports.OptionTypes = exports.FacetedSelect = undefined;
 
-var _FacetedInput = require("./FacetedInput");
+var _FacetedSelect = require('./components/FacetedSelect');
 
-var _FacetedInput2 = _interopRequireDefault(_FacetedInput);
+var _FacetedSelect2 = _interopRequireDefault(_FacetedSelect);
+
+var _OptionTypes = require('./model/OptionTypes');
+
+var _OptionTypes2 = _interopRequireDefault(_OptionTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.FacetedInput = _FacetedInput2.default;
+exports.FacetedSelect = _FacetedSelect2.default;
+exports.OptionTypes = _OptionTypes2.default;
