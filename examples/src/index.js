@@ -4,35 +4,44 @@ import { render} from 'react-dom';
 import { FacetedSelect } from '../../src';
 import OptionTypes from '../../src/model/OptionTypes';
 
-const getCaptureProcessNameSuggestions = () => {
+const getFirstNameSuggestions = () => {
     return [
-        'GI-PI-Claims',
-        'Life-Claims-RetailClaims'
+        'Jane',
+        'John',
+        'Joe'
     ]
 };
 
-const getFlowSuggestions = () => {
+const getLastNameSuggestions = () => {
     return [
-        'Life-Claims-V10',
-        'BounceBack-Emails-v1'
+        'Doe',
+        'Bloggs'
     ]
+};
+
+const onOptionSelected = (option) => {
+    console.group('onOptionSelected');
+    console.log('option.label: %s', option.label);
+    console.log('option.value: %s', option.value);
+    console.groupEnd();
 };
 
 const App = () => (
     <FacetedSelect
+        onOptionSelected={onOptionSelected}
         options={[
             { 
-                label:"Capture Process Name", 
+                label:"First Name",
                 type: OptionTypes.TextOption, 
-                getSuggestions: getCaptureProcessNameSuggestions 
+                getSuggestions: getFirstNameSuggestions
             },
             {
-                label:"Flow",
+                label:"Last Name",
                 type: OptionTypes.TextOption,
-                getSuggestions: getFlowSuggestions
+                getSuggestions: getLastNameSuggestions
             },
             {
-                label:"Capture Correlation ID",
+                label:"Description",
                 type: OptionTypes.Text
             }
         ]}
