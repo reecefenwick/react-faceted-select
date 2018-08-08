@@ -57,3 +57,24 @@ describe('FacetedSelect.js', () => {
 
 
 });
+
+describe('FacetedSelect #filterOption', () => {
+    it('should return true for falsy value', () => {
+        expect(FacetedSelect.filterOption({}, false)).toEqual(true);
+        expect(FacetedSelect.filterOption({}, undefined)).toEqual(true);
+        expect(FacetedSelect.filterOption({}, null)).toEqual(true);
+        expect(FacetedSelect.filterOption({}, '')).toEqual(true);
+    });
+
+    it('should match case insensitive', () => {
+        const option = { label: 'FirSt nAmE' };
+        expect(FacetedSelect.filterOption(option, 'first name'))
+            .toEqual(true);
+    });
+
+    it('should match using token AFTER separator', () => {
+        const option = { label: 'John' };
+        expect(FacetedSelect.filterOption(option, 'First name:John'))
+            .toEqual(true);
+    });
+});

@@ -7,6 +7,18 @@ const FILTER_SEPARATOR = ':';
 
 class FacetedSelect extends React.Component {
 
+    /*
+    Only static for easy testing, fix?
+     */
+    static filterOption = (option, inputValue) => {
+        if (!inputValue) return true;
+        let searchTerm = inputValue.toLowerCase();
+        if (searchTerm.includes(FILTER_SEPARATOR)) {
+            searchTerm = searchTerm.split(FILTER_SEPARATOR)[1];
+        }
+        return option.label.toLowerCase().includes(searchTerm);
+    };
+
     static propTypes = {
         options: PropTypes.arrayOf(PropTypes.shape({
             label: PropTypes.string.isRequired,
@@ -98,15 +110,6 @@ class FacetedSelect extends React.Component {
         )
     };
 
-    filterOption = (option, inputValue) => {
-        if (!inputValue) return true;
-        let searchTerm = inputValue.toLowerCase();
-        if (searchTerm.includes(FILTER_SEPARATOR)) {
-            searchTerm = searchTerm.split(FILTER_SEPARATOR)[1];
-        }
-        return option.label.toLowerCase().includes(searchTerm);
-    };
-
     render() {
         const options = this.buildOptions();
 
@@ -121,7 +124,7 @@ class FacetedSelect extends React.Component {
                 placeholder="Search..."
                 isClearable={false}
                 closeMenuOnSelect={false}
-                filterOption={this.filterOption}
+                filterOption={FacetedSelect.filterOption}
                 onChange={this.handleChange}
                 options={options}
                 onInputChange={this.handleInputChange}
