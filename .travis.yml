@@ -6,6 +6,7 @@ install:
 
 script:
   - npm run-script lint || travis_terminate 1;
-  - npm test || travis_terminate 1;
-  - npm run-script build || travis_terminate 1;
+  - npm run-script test || travis_terminate 1;
+  - npm run-script transpile || travis_terminate 1;
+  - npm run-script publish-demo || travis_terminate 1;
   - npm run-script coveralls || travis_terminate 1;
