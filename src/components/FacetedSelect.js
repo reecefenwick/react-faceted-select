@@ -20,15 +20,15 @@ class FacetedSelect extends React.Component {
         value: []
     };
 
-    buildOptions = (state, props) => {
+    buildOptions = () => {
         const {options} = this.props;
         const {inputValue} = this.state;
-        // TODO RF - May need to maintain more properties
         if (inputValue.includes(FILTER_SEPARATOR)) {
-            // extract the key
+            const key = inputValue.split(FILTER_SEPARATOR)[0];
             const option = options.find(o => {
-                return o.label === inputValue.split(FILTER_SEPARATOR)[0]
+                return o.label === key
             });
+            // TODO RF - if no option is matched what do?
             const suggestions = option.getSuggestions ? option.getSuggestions() : [];
             return suggestions
                 .map(suggestedValue => {
@@ -69,8 +69,7 @@ class FacetedSelect extends React.Component {
                 newSelectedValue.label = `${newSelectedValue.originalOption.label}: ${newSelectedValue.label}`;
                 newSelectedValue.value = `${newSelectedValue.originalOption.value}: ${newSelectedValue.value}`;
             }
-            // TODO RF - Change value
-            console.log('Selected suggested value');
+            // TODO RF - Call parent component (prop method)
             this.setState({
                 value: selectedValues
             });
@@ -109,7 +108,7 @@ class FacetedSelect extends React.Component {
     };
 
     render() {
-        const options = this.buildOptions(this.state, this.props);
+        const options = this.buildOptions();
 
         const {inputValue, value} = this.state;
 
@@ -119,6 +118,7 @@ class FacetedSelect extends React.Component {
                 components={{
                     Input: this.renderCustomInput
                 }}
+                placeholder="Search..."
                 isClearable={false}
                 closeMenuOnSelect={false}
                 filterOption={this.filterOption}
@@ -127,6 +127,7 @@ class FacetedSelect extends React.Component {
                 onInputChange={this.handleInputChange}
                 inputValue={inputValue}
                 value={value}
+                formatCreateLabel={(inputValue) => inputValue}
             />
         )
     }

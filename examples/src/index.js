@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render} from 'react-dom';
 import { FacetedSelect } from '../../src';
-import { OptionTypes } from '../../src/model/OptionTypes';
+import OptionTypes from '../../src/model/OptionTypes';
 
 const getCaptureProcessNameSuggestions = () => {
     return [

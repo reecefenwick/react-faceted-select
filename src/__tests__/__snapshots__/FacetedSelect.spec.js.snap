@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FacetedSelect.js should export FacetedSelect 1`] = `
+exports[`FacetedSelect.js should suggest options for keys 1`] = `
 <StateManager
   closeMenuOnSelect={false}
   components={
@@ -12,6 +12,7 @@ exports[`FacetedSelect.js should export FacetedSelect 1`] = `
   defaultMenuIsOpen={false}
   defaultValue={null}
   filterOption={[Function]}
+  formatCreateLabel={[Function]}
   inputValue=""
   isClearable={false}
   isMulti={true}
@@ -36,6 +37,52 @@ exports[`FacetedSelect.js should export FacetedSelect 1`] = `
       },
     ]
   }
+  placeholder="Search..."
+  value={Array []}
+/>
+`;
+
+exports[`FacetedSelect.js should suggest values for selected key 1`] = `
+<StateManager
+  closeMenuOnSelect={false}
+  components={
+    Object {
+      "Input": [Function],
+    }
+  }
+  defaultInputValue=""
+  defaultMenuIsOpen={false}
+  defaultValue={null}
+  filterOption={[Function]}
+  formatCreateLabel={[Function]}
+  inputValue="Capture Process Name:"
+  isClearable={false}
+  isMulti={true}
+  onChange={[Function]}
+  onInputChange={[Function]}
+  options={
+    Array [
+      Object {
+        "label": "GI-PI-Claims",
+        "originalOption": Object {
+          "getSuggestions": [Function],
+          "label": "Capture Process Name",
+          "type": "textoption",
+        },
+        "value": "GI-PI-Claims",
+      },
+      Object {
+        "label": "Life-Claims-RetailClaims",
+        "originalOption": Object {
+          "getSuggestions": [Function],
+          "label": "Capture Process Name",
+          "type": "textoption",
+        },
+        "value": "Life-Claims-RetailClaims",
+      },
+    ]
+  }
+  placeholder="Search..."
   value={Array []}
 />
 `;

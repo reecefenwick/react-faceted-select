@@ -35,10 +35,25 @@ const options = [
 ];
 
 describe('FacetedSelect.js', () => {
-    it ('should export FacetedSelect', () => {
-        const component = shallow(<FacetedSelect
+    it('should suggest options for keys', () => {
+        const wrapper = shallow(<FacetedSelect
             options={options}
         />);
-        expect(component).toMatchSnapshot();
-    })
+        expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should suggest values for selected key', () => {
+        const wrapper = shallow(<FacetedSelect
+            options={options}
+        />);
+        wrapper.instance().handleInputChange('Capture Process Name:');
+        wrapper.update();
+        expect(wrapper).toMatchSnapshot();
+    });
+
+    // When key input that matches no options e.g. 'Unknown:'
+
+    // Should call this.props.onSelectOption when adding item and input is complete
+
+
 });
