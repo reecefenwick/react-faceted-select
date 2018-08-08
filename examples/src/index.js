@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { render} from 'react-dom';
-import { FacetedInput } from '../../src';
-import { OptionTypes } from '../../src/OptionTypes';
+import { FacetedSelect } from '../../src';
+import { OptionTypes } from '../../src/model/OptionTypes';
 
 const getCaptureProcessNameSuggestions = () => {
     return [
@@ -19,7 +19,7 @@ const getFlowSuggestions = () => {
 };
 
 const App = () => (
-    <FacetedInput
+    <FacetedSelect
         placeholder="Search..."
         options={[
             { 

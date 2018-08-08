@@ -1,3 +1,4 @@
-import FacetedInput from "./FacetedInput";
+import FacetedSelect from './components/FacetedSelect';
+import OptionTypes from './model/OptionTypes'
 
-export { FacetedInput }
+export { FacetedSelect, OptionTypes }

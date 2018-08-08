@@ -1,7 +1,11 @@
-import { FacetedInput } from './index';
+import { FacetedSelect, OptionTypes } from './index';
 
 describe('index.js', () => {
-    it ('should export FacetedInput', () => {
-        expect(FacetedInput).not.toBeNull()
+    it ('should export FacetedSelect', () => {
+        expect(FacetedSelect).not.toBeNull()
+    });
+
+    it ('should export OptionTypes', () => {
+        expect(OptionTypes).not.toBeNull()
     })
 });

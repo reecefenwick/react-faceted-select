@@ -5,7 +5,7 @@ import CreatableSelect from 'react-select/lib/Creatable';
 
 const FILTER_SEPARATOR = ':';
 
-class FacetedInput extends React.Component {
+class FacetedSelect extends React.Component {
 
     static propTypes = {
         options: PropTypes.arrayOf(PropTypes.shape({
@@ -132,4 +132,4 @@ class FacetedInput extends React.Component {
     }
 }
 
-export default FacetedInput;
+export default FacetedSelect;
