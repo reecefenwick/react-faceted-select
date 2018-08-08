@@ -9,7 +9,7 @@
     "test": "jest --coverage --env=jsdom",
     "transpile": "babel src -d dist --copy-files",
     "build": "webpack --mode production",
-    "deploy": "gh-pages -d examples/dist",
+    "deploy": "gh-pages -d dist",
     "coveralls": "cat coverage/lcov.info | coveralls",
     "publish-demo": "npm run build && npm run deploy",
     "prepublishOnly": "npm run transpile"
