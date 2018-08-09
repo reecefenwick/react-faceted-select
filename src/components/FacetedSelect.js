@@ -75,7 +75,7 @@ class FacetedSelect extends React.Component {
 
     handleChange = (selectedValues, meta) => {
         const {inputValue} = this.state;
-        const inputHasSeparator = inputValue && inputValue.includes(FILTER_SEPARATOR);
+        const inputHasSeparator = inputValue.includes(FILTER_SEPARATOR);
         // TODO RF - create-option with no input separator
         if (meta.action === ReactSelectActions.REMOVE_VAL || meta.action === ReactSelectActions.POP_VALUE) {
             this.setState({
@@ -139,6 +139,7 @@ class FacetedSelect extends React.Component {
                 closeMenuOnSelect={false}
                 filterOption={FacetedSelect.filterOption}
                 onChange={this.handleChange}
+                blurInputOnSelect={false}
                 options={options}
                 onInputChange={this.handleInputChange}
                 inputValue={inputValue}
