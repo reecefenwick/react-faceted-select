@@ -75,7 +75,9 @@ var FacetedSelect = function (_React$Component) {
                     };
                 });
             } else {
+                // sort options by group
                 return options.map(function (o) {
+                    var group = o.group || 'Other';
                     return {
                         value: o.label,
                         label: o.label,
@@ -99,9 +101,13 @@ var FacetedSelect = function (_React$Component) {
                     // No originalOption available - don't modify newSelectedValue
                 } else {
                     newSelectedValue.label = '' + newSelectedValue.originalOption.label + FILTER_SEPARATOR + newSelectedValue.label;
-                    newSelectedValue.value = '' + newSelectedValue.originalOption.selectedValues + FILTER_SEPARATOR + newSelectedValue.selectedValues;
+                    newSelectedValue.value = '' + newSelectedValue.originalOption.label + FILTER_SEPARATOR + newSelectedValue.label;
                 }
-                // TODO RF - Call parent component (prop method)
+                // TODO RF - refactor splitting
+                _this.props.onOptionSelected({
+                    label: newSelectedValue.label.split(FILTER_SEPARATOR)[0],
+                    value: newSelectedValue.label.split(FILTER_SEPARATOR)[1]
+                });
                 _this.setState({
                     selectedValues: selectedValues
                 });
@@ -179,9 +185,11 @@ FacetedSelect.filterOption = function (option, inputValue) {
 
 FacetedSelect.propTypes = {
     options: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+        // TODO RF - Control if multiple entries for an option can be input? e.g. 2 x "First Name"
         label: _propTypes2.default.string.isRequired,
         type: _propTypes2.default.string.isRequired, // TODO RF - Not currently used (needed for dates tho)
         getSuggestions: _propTypes2.default.func
-    })).isRequired
+    })).isRequired,
+    onOptionSelected: _propTypes2.default.func.isRequired
 };
 exports.default = FacetedSelect;

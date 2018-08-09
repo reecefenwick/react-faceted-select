@@ -61,9 +61,13 @@ describe('FacetedSelect', function () {
 
 describe('FacetedSelect #handleChange', function () {
     var wrapper = void 0;
+    var onSelectOptionMock = void 0;
+
     beforeEach(function () {
+        onSelectOptionMock = jest.fn();
         wrapper = (0, _enzyme.shallow)(_react2.default.createElement(_FacetedSelect2.default, {
-            options: options
+            options: options,
+            onOptionSelected: onSelectOptionMock
         }));
     });
 
@@ -115,6 +119,11 @@ describe('FacetedSelect #handleChange', function () {
         var state = wrapper.state();
         expect(state.inputValue).toEqual('First Name:Jane');
         expect(state.selectedValues[1]).toEqual(stubSelectedValues[1]);
+
+        expect(onSelectOptionMock).toHaveBeenCalled();
+        var onSelectOptionCall = onSelectOptionMock.mock.calls[0][0];
+        expect(onSelectOptionCall.label).toEqual('First Name');
+        expect(onSelectOptionCall.value).toEqual('Jane');
     });
 });
 
