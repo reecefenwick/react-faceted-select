@@ -110,46 +110,44 @@ var _OptionTypes2 = _interopRequireDefault(_OptionTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var getFirstNameSuggestions = function getFirstNameSuggestions() {
+const getFirstNameSuggestions = () => {
     return ['Jane', 'John', 'Joe'];
 };
 
-var getLastNameSuggestions = function getLastNameSuggestions() {
+const getLastNameSuggestions = () => {
     return ['Doe', 'Bloggs'];
 };
 
-var onOptionSelected = function onOptionSelected(option) {
+const onOptionSelected = option => {
     console.group('onOptionSelected');
     console.log('option.label: %s', option.label);
     console.log('option.value: %s', option.value);
     console.groupEnd();
 };
 
-var OptionGroups = {
+const OptionGroups = {
     PERSON_ATTRS: 'Person Attributes',
     BIO_ATTRS: 'Bio Attributes'
 };
 
-var App = function App() {
-    return _react2.default.createElement(_src.FacetedSelect, {
-        onOptionSelected: onOptionSelected,
-        options: [{
-            group: OptionGroups.PERSON_ATTRS,
-            label: "First Name",
-            type: _OptionTypes2.default.TextOption,
-            getSuggestions: getFirstNameSuggestions
-        }, {
-            group: OptionGroups.PERSON_ATTRS,
-            label: "Last Name",
-            type: _OptionTypes2.default.TextOption,
-            getSuggestions: getLastNameSuggestions
-        }, {
-            group: OptionGroups.BIO_ATTRS,
-            label: "Description",
-            type: _OptionTypes2.default.Text
-        }]
-    });
-};
+const App = () => _react2.default.createElement(_src.FacetedSelect, {
+    onOptionSelected: onOptionSelected,
+    options: [{
+        group: OptionGroups.PERSON_ATTRS,
+        label: "First Name",
+        type: _OptionTypes2.default.TextOption,
+        getSuggestions: getFirstNameSuggestions
+    }, {
+        group: OptionGroups.PERSON_ATTRS,
+        label: "Last Name",
+        type: _OptionTypes2.default.TextOption,
+        getSuggestions: getLastNameSuggestions
+    }, {
+        group: OptionGroups.BIO_ATTRS,
+        label: "Description",
+        type: _OptionTypes2.default.Text
+    }]
+});
 
 (0, _reactDom.render)(_react2.default.createElement(App, null), document.getElementById("root"));
 
@@ -34565,8 +34563,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
@@ -34583,52 +34579,35 @@ var _Creatable2 = _interopRequireDefault(_Creatable);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 /*
 Constants for 'actions' associated with onChange in react-select
  */
-var ReactSelectActions = {
+const ReactSelectActions = {
     SELECT_OPTION: 'select-option',
     CREATE_OPTION: 'create-option',
     REMOVE_VAL: 'remove-value',
     POP_VALUE: 'pop-value'
 };
-var FILTER_SEPARATOR = ':';
+const FILTER_SEPARATOR = ':';
 
-var FacetedSelect = function (_React$Component) {
-    _inherits(FacetedSelect, _React$Component);
+class FacetedSelect extends _react2.default.Component {
+    constructor(...args) {
+        var _temp;
 
-    function FacetedSelect() {
-        var _ref;
-
-        var _temp, _this, _ret;
-
-        _classCallCheck(this, FacetedSelect);
-
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
-
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = FacetedSelect.__proto__ || Object.getPrototypeOf(FacetedSelect)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+        return _temp = super(...args), this.state = {
             inputValue: '',
             selectedValues: []
-        }, _this.buildOptions = function () {
-            var options = _this.props.options;
-            var inputValue = _this.state.inputValue;
-
+        }, this.buildOptions = () => {
+            const { options } = this.props;
+            const { inputValue } = this.state;
             if (inputValue.includes(FILTER_SEPARATOR)) {
-                var key = inputValue.split(FILTER_SEPARATOR)[0];
-                var option = options.find(function (o) {
+                const key = inputValue.split(FILTER_SEPARATOR)[0];
+                const option = options.find(o => {
                     return o.label === key;
                 });
                 // TODO RF - if no option is matched what do?
-                var suggestions = option.getSuggestions ? option.getSuggestions() : [];
-                return suggestions.map(function (suggestedValue) {
+                const suggestions = option.getSuggestions ? option.getSuggestions() : [];
+                return suggestions.map(suggestedValue => {
                     return {
                         value: suggestedValue,
                         label: suggestedValue,
@@ -34637,7 +34616,7 @@ var FacetedSelect = function (_React$Component) {
                 });
             } else {
                 // sort options by group
-                return options.map(function (o) {
+                return options.map(o => {
                     return {
                         value: o.label,
                         label: o.label,
@@ -34645,49 +34624,48 @@ var FacetedSelect = function (_React$Component) {
                     };
                 });
             }
-        }, _this.handleChange = function (selectedValues, meta) {
-            var inputValue = _this.state.inputValue;
-
-            var inputHasSeparator = inputValue && inputValue.includes(FILTER_SEPARATOR);
+        }, this.handleChange = (selectedValues, meta) => {
+            const { inputValue } = this.state;
+            const inputHasSeparator = inputValue && inputValue.includes(FILTER_SEPARATOR);
             // TODO RF - create-option with no input separator
             if (meta.action === ReactSelectActions.REMOVE_VAL || meta.action === ReactSelectActions.POP_VALUE) {
-                _this.setState({
+                this.setState({
                     selectedValues: selectedValues
                 });
             } else if ((meta.action === ReactSelectActions.SELECT_OPTION || meta.action === ReactSelectActions.CREATE_OPTION) && inputHasSeparator) {
                 // selected a suggested value
-                var newSelectedValue = selectedValues[selectedValues.length - 1];
+                const newSelectedValue = selectedValues[selectedValues.length - 1];
                 if (meta.action === ReactSelectActions.CREATE_OPTION) {
                     // No originalOption available - don't modify newSelectedValue
                 } else {
-                    newSelectedValue.label = '' + newSelectedValue.originalOption.label + FILTER_SEPARATOR + newSelectedValue.label;
-                    newSelectedValue.value = '' + newSelectedValue.originalOption.label + FILTER_SEPARATOR + newSelectedValue.label;
+                    newSelectedValue.label = `${newSelectedValue.originalOption.label}${FILTER_SEPARATOR}${newSelectedValue.label}`;
+                    newSelectedValue.value = `${newSelectedValue.originalOption.label}${FILTER_SEPARATOR}${newSelectedValue.label}`;
                 }
                 // TODO RF - refactor splitting
-                _this.props.onOptionSelected({
+                this.props.onOptionSelected({
                     label: newSelectedValue.label.split(FILTER_SEPARATOR)[0],
                     value: newSelectedValue.label.split(FILTER_SEPARATOR)[1]
                 });
-                _this.setState({
+                this.setState({
                     selectedValues: selectedValues
                 });
             } else if (meta.action === ReactSelectActions.SELECT_OPTION && !inputHasSeparator) {
                 // selected a suggested key
-                var selectedOption = selectedValues[selectedValues.length - 1];
-                _this.setState({ inputValue: selectedOption.label + ':' });
+                const selectedOption = selectedValues[selectedValues.length - 1];
+                this.setState({ inputValue: `${selectedOption.label}:` });
             } else {
-                throw new Error('Unexpected state for input ' + inputValue + ' and meta ' + JSON.stringify(meta));
+                throw new Error(`Unexpected state for input ${inputValue} and meta ${JSON.stringify(meta)}`);
             }
-        }, _this.handleInputChange = function (inputValue) {
-            _this.setState({ inputValue: inputValue });
-        }, _this.renderCustomInput = function (props) {
+        }, this.handleInputChange = inputValue => {
+            this.setState({ inputValue });
+        }, this.renderCustomInput = props => {
             // if type 'date' render date-picker
             return _react2.default.createElement(
                 'div',
                 null,
                 _react2.default.createElement(_reactSelect.components.Input, props)
             );
-        }, _temp), _possibleConstructorReturn(_this, _ret);
+        }, _temp;
     }
 
     /*
@@ -34700,43 +34678,33 @@ var FacetedSelect = function (_React$Component) {
      */
 
 
-    _createClass(FacetedSelect, [{
-        key: 'render',
-        value: function render() {
-            var options = this.buildOptions();
+    render() {
+        const options = this.buildOptions();
 
-            var _state = this.state,
-                inputValue = _state.inputValue,
-                selectedValues = _state.selectedValues;
+        const { inputValue, selectedValues } = this.state;
 
+        return _react2.default.createElement(_Creatable2.default, {
+            isMulti: true,
+            components: {
+                Input: this.renderCustomInput
+            },
+            placeholder: 'Search...',
+            isClearable: false,
+            closeMenuOnSelect: false,
+            filterOption: FacetedSelect.filterOption,
+            onChange: this.handleChange,
+            options: options,
+            onInputChange: this.handleInputChange,
+            inputValue: inputValue,
+            value: selectedValues,
+            formatCreateLabel: inputValue => inputValue
+        });
+    }
+}
 
-            return _react2.default.createElement(_Creatable2.default, {
-                isMulti: true,
-                components: {
-                    Input: this.renderCustomInput
-                },
-                placeholder: 'Search...',
-                isClearable: false,
-                closeMenuOnSelect: false,
-                filterOption: FacetedSelect.filterOption,
-                onChange: this.handleChange,
-                options: options,
-                onInputChange: this.handleInputChange,
-                inputValue: inputValue,
-                value: selectedValues,
-                formatCreateLabel: function formatCreateLabel(inputValue) {
-                    return inputValue;
-                }
-            });
-        }
-    }]);
-
-    return FacetedSelect;
-}(_react2.default.Component);
-
-FacetedSelect.filterOption = function (option, inputValue) {
+FacetedSelect.filterOption = (option, inputValue) => {
     if (!inputValue) return true;
-    var searchTerm = inputValue.toLowerCase();
+    let searchTerm = inputValue.toLowerCase();
     if (searchTerm.includes(FILTER_SEPARATOR)) {
         searchTerm = searchTerm.split(FILTER_SEPARATOR)[1];
     }
@@ -34799,7 +34767,7 @@ exports.OptionTypes = _OptionTypes2.default;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var OptionTypes = {
+const OptionTypes = {
     Date: 'date',
     Text: 'text',
     TextOption: 'textoption'
