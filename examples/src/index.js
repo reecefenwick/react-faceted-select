@@ -1,6 +1,6 @@
+import 'babel-polyfill';
 import React from 'react';
-
-import { render} from 'react-dom';
+import { render } from 'react-dom';
 import { FacetedSelect } from '../../src';
 import OptionTypes from '../../src/model/OptionTypes';
 
@@ -26,21 +26,29 @@ const onOptionSelected = (option) => {
     console.groupEnd();
 };
 
+const OptionGroups = {
+    PERSON_ATTRS: 'Person Attributes',
+    BIO_ATTRS: 'Bio Attributes'
+};
+
 const App = () => (
     <FacetedSelect
         onOptionSelected={onOptionSelected}
         options={[
-            { 
+            {
+                group: OptionGroups.PERSON_ATTRS,
                 label:"First Name",
                 type: OptionTypes.TextOption, 
                 getSuggestions: getFirstNameSuggestions
             },
             {
+                group: OptionGroups.PERSON_ATTRS,
                 label:"Last Name",
                 type: OptionTypes.TextOption,
                 getSuggestions: getLastNameSuggestions
             },
             {
+                group: OptionGroups.BIO_ATTRS,
                 label:"Description",
                 type: OptionTypes.Text
             }
