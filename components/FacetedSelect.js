@@ -75,9 +75,7 @@ var FacetedSelect = function (_React$Component) {
                     };
                 });
             } else {
-                // sort options by group
                 return options.map(function (o) {
-                    var group = o.group || 'Other';
                     return {
                         value: o.label,
                         label: o.label,
@@ -88,7 +86,7 @@ var FacetedSelect = function (_React$Component) {
         }, _this.handleChange = function (selectedValues, meta) {
             var inputValue = _this.state.inputValue;
 
-            var inputHasSeparator = inputValue && inputValue.includes(FILTER_SEPARATOR);
+            var inputHasSeparator = inputValue.includes(FILTER_SEPARATOR);
             // TODO RF - create-option with no input separator
             if (meta.action === ReactSelectActions.REMOVE_VAL || meta.action === ReactSelectActions.POP_VALUE) {
                 _this.setState({
@@ -160,6 +158,7 @@ var FacetedSelect = function (_React$Component) {
                 closeMenuOnSelect: false,
                 filterOption: FacetedSelect.filterOption,
                 onChange: this.handleChange,
+                blurInputOnSelect: false,
                 options: options,
                 onInputChange: this.handleInputChange,
                 inputValue: inputValue,
