@@ -96,11 +96,11 @@
 "use strict";
 
 
+__webpack_require__(/*! babel-polyfill */ "./node_modules/babel-polyfill/lib/index.js");
+
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
-
-__webpack_require__(/*! babel-polyfill */ "./node_modules/babel-polyfill/lib/index.js");
 
 var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 
