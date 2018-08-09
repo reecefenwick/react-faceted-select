@@ -99,13 +99,15 @@ var FacetedSelect = function (_React$Component) {
                     // No originalOption available - don't modify newSelectedValue
                 } else {
                     newSelectedValue.label = '' + newSelectedValue.originalOption.label + FILTER_SEPARATOR + newSelectedValue.label;
-                    newSelectedValue.value = '' + newSelectedValue.originalOption.label + FILTER_SEPARATOR + newSelectedValue.label;
+                    newSelectedValue.value = '' + newSelectedValue.label;
                 }
                 // TODO RF - refactor splitting
-                _this.props.onOptionSelected({
-                    label: newSelectedValue.label.split(FILTER_SEPARATOR)[0],
-                    value: newSelectedValue.label.split(FILTER_SEPARATOR)[1]
-                });
+                _this.props.onOptionSelected(selectedValues.map(function (val) {
+                    return {
+                        label: val.label.split(FILTER_SEPARATOR)[0],
+                        value: val.label.split(FILTER_SEPARATOR)[1]
+                    };
+                }));
                 _this.setState({
                     selectedValues: selectedValues
                 });
