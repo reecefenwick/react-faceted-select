@@ -18,10 +18,10 @@ const getLastNameSuggestions = () => {
     ]
 };
 
-const onOptionSelected = (option) => {
-    console.group('onOptionSelected');
-    console.log('option.label: %s', option.label);
-    console.log('option.value: %s', option.value);
+const onOptionSelected = (selectedOptions) => {
+    console.group('onOptionSelected - new option');
+    console.log('option.label: %s', selectedOptions[selectedOptions.length - 1].label);
+    console.log('option.value: %s', selectedOptions[selectedOptions.length - 1].value);
     console.groupEnd();
 };
 
