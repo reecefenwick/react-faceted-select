@@ -118,8 +118,8 @@ var getLastNameSuggestions = function getLastNameSuggestions() {
     return ['Doe', 'Bloggs'];
 };
 
-var onOptionSelected = function onOptionSelected(selectedOptions) {
-    console.group('onOptionSelected - new option');
+var onOptionsChanged = function onOptionsChanged(selectedOptions) {
+    console.group('onOptionsChanged - new option');
     console.log('option.label: %s', selectedOptions[selectedOptions.length - 1].label);
     console.log('option.value: %s', selectedOptions[selectedOptions.length - 1].value);
     console.groupEnd();
@@ -132,7 +132,7 @@ var OptionGroups = {
 
 var App = function App() {
     return _react2.default.createElement(_src.FacetedSelect, {
-        onOptionSelected: onOptionSelected,
+        onOptionsChanged: onOptionsChanged,
         options: [{
             group: OptionGroups.PERSON_ATTRS,
             label: "First Name",
@@ -34644,6 +34644,14 @@ var FacetedSelect = function (_React$Component) {
                     };
                 });
             }
+        }, _this.onOptionsChanged = function (selectedValues) {
+            // TODO RF - refactor splitting
+            _this.props.onOptionsChanged(selectedValues.map(function (val) {
+                return {
+                    label: val.label.split(FILTER_SEPARATOR)[0],
+                    value: val.label.split(FILTER_SEPARATOR)[1]
+                };
+            }));
         }, _this.handleChange = function (selectedValues, meta) {
             var inputValue = _this.state.inputValue;
 
@@ -34653,6 +34661,7 @@ var FacetedSelect = function (_React$Component) {
                 _this.setState({
                     selectedValues: selectedValues
                 });
+                _this.onOptionsChanged(selectedValues);
             } else if ((meta.action === ReactSelectActions.SELECT_OPTION || meta.action === ReactSelectActions.CREATE_OPTION) && inputHasSeparator) {
                 // selected a suggested value
                 var newSelectedValue = selectedValues[selectedValues.length - 1];
@@ -34662,16 +34671,10 @@ var FacetedSelect = function (_React$Component) {
                     newSelectedValue.label = '' + newSelectedValue.originalOption.label + FILTER_SEPARATOR + newSelectedValue.label;
                     newSelectedValue.value = '' + newSelectedValue.label;
                 }
-                // TODO RF - refactor splitting
-                _this.props.onOptionSelected(selectedValues.map(function (val) {
-                    return {
-                        label: val.label.split(FILTER_SEPARATOR)[0],
-                        value: val.label.split(FILTER_SEPARATOR)[1]
-                    };
-                }));
                 _this.setState({
                     selectedValues: selectedValues
                 });
+                _this.onOptionsChanged(selectedValues);
             } else if (meta.action === ReactSelectActions.SELECT_OPTION && !inputHasSeparator) {
                 // selected a suggested key
                 var selectedOption = selectedValues[selectedValues.length - 1];
@@ -34752,7 +34755,7 @@ FacetedSelect.propTypes = {
         type: _propTypes2.default.string.isRequired, // TODO RF - Not currently used (needed for dates tho)
         getSuggestions: _propTypes2.default.func
     })).isRequired,
-    onOptionSelected: _propTypes2.default.func.isRequired
+    onOptionsChanged: _propTypes2.default.func.isRequired
 };
 exports.default = FacetedSelect;
 
