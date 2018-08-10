@@ -35,7 +35,7 @@ class FacetedSelect extends React.Component {
             type: PropTypes.string.isRequired, // TODO RF - Not currently used (needed for dates tho)
             getSuggestions: PropTypes.func
         })).isRequired,
-        onOptionSelected: PropTypes.func.isRequired
+        onOptionsChanged: PropTypes.func.isRequired
     };
 
     state = {
@@ -73,6 +73,14 @@ class FacetedSelect extends React.Component {
         }
     };
 
+    onOptionsChanged = (selectedValues) => {
+        // TODO RF - refactor splitting
+        this.props.onOptionsChanged(selectedValues.map(val => ({
+            label: val.label.split(FILTER_SEPARATOR)[0],
+            value: val.label.split(FILTER_SEPARATOR)[1]
+        })));
+    };
+
     handleChange = (selectedValues, meta) => {
         const {inputValue} = this.state;
         const inputHasSeparator = inputValue.includes(FILTER_SEPARATOR);
@@ -81,6 +89,7 @@ class FacetedSelect extends React.Component {
             this.setState({
                 selectedValues: selectedValues
             });
+            this.onOptionsChanged(selectedValues);
         } else if ((meta.action === ReactSelectActions.SELECT_OPTION || meta.action === ReactSelectActions.CREATE_OPTION) && inputHasSeparator) {
             // selected a suggested value
             const newSelectedValue = selectedValues[selectedValues.length - 1];
@@ -90,14 +99,10 @@ class FacetedSelect extends React.Component {
                 newSelectedValue.label = `${newSelectedValue.originalOption.label}${FILTER_SEPARATOR}${newSelectedValue.label}`;
                 newSelectedValue.value = `${newSelectedValue.label}`;
             }
-            // TODO RF - refactor splitting
-            this.props.onOptionSelected(selectedValues.map(val => ({
-                label: val.label.split(FILTER_SEPARATOR)[0],
-                value: val.label.split(FILTER_SEPARATOR)[1]
-            })));
             this.setState({
                 selectedValues: selectedValues
             });
+            this.onOptionsChanged(selectedValues);
         } else if (meta.action === ReactSelectActions.SELECT_OPTION && !inputHasSeparator) {
             // selected a suggested key
             const selectedOption = selectedValues[selectedValues.length - 1];

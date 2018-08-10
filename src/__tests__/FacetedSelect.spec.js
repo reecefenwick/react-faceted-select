@@ -59,26 +59,28 @@ describe('FacetedSelect', () => {
 
 describe('FacetedSelect #handleChange', () => {
     let wrapper;
-    let onSelectOptionMock;
+    let onOptionsChangedMock;
 
     beforeEach(() => {
-        onSelectOptionMock = jest.fn();
+        onOptionsChangedMock = jest.fn();
         wrapper = shallow(<FacetedSelect
             options={options}
-            onOptionSelected={onSelectOptionMock}
+            onOptionsChanged={onOptionsChangedMock}
         />);
     });
 
     it('should override selectedValues on remove-value', () => {
-        const stubSelectedValues = [123];
+        const stubSelectedValues = [{ label: 'Foo:Bar'}];
         wrapper.instance().handleChange(stubSelectedValues, {action: 'remove-value'});
         wrapper.state().selectedValues = stubSelectedValues;
+        expect(onOptionsChangedMock).toHaveBeenCalled();
     });
 
     it('should override selectedValues on pop-value', () => {
-        const stubSelectedValues = [123];
+        const stubSelectedValues = [{ label: 'Foo:Bar'}];
         wrapper.instance().handleChange(stubSelectedValues, {action: 'pop-value'});
         wrapper.state().selectedValues = stubSelectedValues;
+        expect(onOptionsChangedMock).toHaveBeenCalled();
     });
 
     it('should add separator to inputValue when selecting key to search on', () => {
@@ -86,18 +88,20 @@ describe('FacetedSelect #handleChange', () => {
         wrapper.setState({inputValue: 'First Name'});
         wrapper.update();
         wrapper.instance().handleChange(stubSelectedValues, {action: 'select-option'});
-        expect(wrapper.state().inputValue).toEqual('First Name:')
+        expect(wrapper.state().inputValue).toEqual('First Name:');
+        expect(onOptionsChangedMock).not.toHaveBeenCalled();
     });
 
     it('should not modify selectedValues when entering value not suggested', () => {
-        const stubSelectedValues = [{label: 'First Name'}];
+        const stubSelectedValues = [{ label: 'First Name:Jane' }];
         wrapper.setState({inputValue: 'First Name:Jane'});
         wrapper.update();
         wrapper.instance().handleChange(stubSelectedValues, {action: 'create-option'});
         wrapper.update();
         const state = wrapper.state();
         expect(state.inputValue).toEqual('First Name:Jane');
-        expect(state.selectedValues).toEqual(stubSelectedValues)
+        expect(state.selectedValues).toEqual(stubSelectedValues);
+        expect(onOptionsChangedMock).toHaveBeenCalled();
     });
 
     it('should modify last entry in selectedValues with labels from original option', () => {
@@ -121,8 +125,8 @@ describe('FacetedSelect #handleChange', () => {
         expect(state.inputValue).toEqual('First Name:Jane');
         expect(state.selectedValues[1]).toEqual(stubSelectedValues[1]);
 
-        expect(onSelectOptionMock).toHaveBeenCalled();
-        const onSelectOptionCall = onSelectOptionMock.mock.calls[0][0];
+        expect(onOptionsChangedMock).toHaveBeenCalled();
+        const onSelectOptionCall = onOptionsChangedMock.mock.calls[0][0];
         expect(onSelectOptionCall.length).toEqual(2);
         expect(onSelectOptionCall[1].label).toEqual('First Name');
         expect(onSelectOptionCall[1].value).toEqual('Jane');

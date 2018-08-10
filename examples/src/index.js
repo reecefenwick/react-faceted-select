@@ -18,8 +18,8 @@ const getLastNameSuggestions = () => {
     ]
 };
 
-const onOptionSelected = (selectedOptions) => {
-    console.group('onOptionSelected - new option');
+const onOptionsChanged = (selectedOptions) => {
+    console.group('onOptionsChanged - new option');
     console.log('option.label: %s', selectedOptions[selectedOptions.length - 1].label);
     console.log('option.value: %s', selectedOptions[selectedOptions.length - 1].value);
     console.groupEnd();
@@ -32,7 +32,7 @@ const OptionGroups = {
 
 const App = () => (
     <FacetedSelect
-        onOptionSelected={onOptionSelected}
+        onOptionsChanged={onOptionsChanged}
         options={[
             {
                 group: OptionGroups.PERSON_ATTRS,
