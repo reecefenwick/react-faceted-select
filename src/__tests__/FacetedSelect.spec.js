@@ -35,10 +35,18 @@ const options = [
     }
 ];
 
+const initialValues = [
+    {
+        label: "First Name:Strangelove",
+        value: "First Name:Strangelove"
+    }
+];
+
 describe('FacetedSelect', () => {
     it('should suggest options for keys', () => {
         const wrapper = shallow(<FacetedSelect
             options={options}
+            onOptionsChanged={() => {}}
         />);
         expect(wrapper).toMatchSnapshot();
     });
@@ -46,6 +54,7 @@ describe('FacetedSelect', () => {
     it('should suggest values for selected key', () => {
         const wrapper = shallow(<FacetedSelect
             options={options}
+            onOptionsChanged={() => {}}
         />);
         wrapper.instance().handleInputChange('First Name:');
         wrapper.update();
@@ -66,7 +75,14 @@ describe('FacetedSelect #handleChange', () => {
         wrapper = shallow(<FacetedSelect
             options={options}
             onOptionsChanged={onOptionsChangedMock}
+            initialValues={initialValues}
         />);
+    });
+
+    it('should call onOptionsChanged with initial values', () => {
+        const expectedOptionsChangedCall = [{"label": "First Name", "value": "Strangelove"}];
+        expect(onOptionsChangedMock).toHaveBeenCalledTimes(1);
+        expect(onOptionsChangedMock).toHaveBeenCalledWith(expectedOptionsChangedCall);
     });
 
     it('should override selectedValues on remove-value', () => {
@@ -89,7 +105,7 @@ describe('FacetedSelect #handleChange', () => {
         wrapper.update();
         wrapper.instance().handleChange(stubSelectedValues, {action: 'select-option'});
         expect(wrapper.state().inputValue).toEqual('First Name:');
-        expect(onOptionsChangedMock).not.toHaveBeenCalled();
+        expect(onOptionsChangedMock).toHaveBeenCalledTimes(1); //Is called already due to onMount
     });
 
     it('should not modify selectedValues when entering value not suggested', () => {
@@ -126,7 +142,7 @@ describe('FacetedSelect #handleChange', () => {
         expect(state.selectedValues[1]).toEqual(stubSelectedValues[1]);
 
         expect(onOptionsChangedMock).toHaveBeenCalled();
-        const onSelectOptionCall = onOptionsChangedMock.mock.calls[0][0];
+        const onSelectOptionCall = onOptionsChangedMock.mock.calls[1][0]; //is called once already due to onMount
         expect(onSelectOptionCall.length).toEqual(2);
         expect(onSelectOptionCall[1].label).toEqual('First Name');
         expect(onSelectOptionCall[1].value).toEqual('Jane');
