@@ -35,7 +35,12 @@ class FacetedSelect extends React.Component {
             type: PropTypes.string.isRequired, // TODO RF - Not currently used (needed for dates tho)
             getSuggestions: PropTypes.func
         })).isRequired,
-        onOptionsChanged: PropTypes.func.isRequired
+        onOptionsChanged: PropTypes.func.isRequired,
+        intialValues: PropTypes.arrayOf(PropTypes.object)
+    };
+
+    static defaultProps = {
+        initialValues: []
     };
 
     state = {
@@ -127,6 +132,14 @@ class FacetedSelect extends React.Component {
             </div>
         )
     };
+
+    componentDidMount(){
+        const { initialValues } = this.props;
+        this.setState({
+            selectedValues: initialValues
+        });
+        this.onOptionsChanged(initialValues);
+    }
 
     render() {
         const options = this.buildOptions();
