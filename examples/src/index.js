@@ -34,7 +34,7 @@ const OptionGroups = {
 
 const App = () => (
     <FacetedSelect
-        initialValues={[{label: "First Name:Jane", value: "First Name:Jane"}]}
+        initialValues={[{label: "First Name", value: "Jane"}]}
         onOptionsChanged={onOptionsChanged}
         options={[
             {

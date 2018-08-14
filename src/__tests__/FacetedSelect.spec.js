@@ -37,8 +37,8 @@ const options = [
 
 const initialValues = [
     {
-        label: "First Name:Strangelove",
-        value: "First Name:Strangelove"
+        label: "First Name",
+        value: "Strangelove"
     }
 ];
 
