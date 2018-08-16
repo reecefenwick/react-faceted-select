@@ -61,6 +61,17 @@ describe('FacetedSelect', () => {
         expect(wrapper).toMatchSnapshot();
     });
 
+    it('should call onOptionsChanged with default initial values', () => {
+        let onOptionsChangedMock = jest.fn();
+        const wrapper = shallow(<FacetedSelect
+            options={options}
+            onOptionsChanged={onOptionsChangedMock}
+        />);
+        const expectedOptionsChangedCall = [];
+        expect(onOptionsChangedMock).toHaveBeenCalledTimes(1);
+        expect(onOptionsChangedMock).toHaveBeenCalledWith(expectedOptionsChangedCall);
+    });
+
     // When key input that matches no options e.g. 'Unknown:'
 
     // Should call this.props.onSelectOption when adding item and input is complete
