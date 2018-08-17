@@ -1,6 +1,7 @@
 import React from 'react';
 import FacetedSelect from '../components/FacetedSelect';
-import {shallow} from "enzyme";
+import {components} from 'react-select';
+import {shallow, mount} from "enzyme";
 import OptionTypes from "../model/OptionTypes";
 
 const getFirstNameSuggestions = () => {
@@ -50,6 +51,16 @@ describe('FacetedSelect', () => {
         wrapper.instance().handleInputChange('First Name:');
         wrapper.update();
         expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render label with bold key', () => {
+        const wrapper = shallow(<FacetedSelect
+            options={options}
+            onOptionsChanged={() => {}}
+        />);
+        const multiValueLabel = shallow(
+            wrapper.instance().renderCustomLabel({ children: 'First Name: Jane'}));
+        expect(multiValueLabel).toMatchSnapshot();
     });
 
     // When key input that matches no options e.g. 'Unknown:'

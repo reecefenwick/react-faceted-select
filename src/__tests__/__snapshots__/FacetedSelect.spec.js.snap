@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`FacetedSelect should render label with bold key 1`] = `
+<div>
+  <strong>
+    First Name
+  </strong>
+   : 
+   Jane
+</div>
+`;
+
 exports[`FacetedSelect should suggest options for keys 1`] = `
 <StateManager
   blurInputOnSelect={false}
@@ -7,6 +17,7 @@ exports[`FacetedSelect should suggest options for keys 1`] = `
   components={
     Object {
       "Input": [Function],
+      "MultiValueLabel": [Function],
     }
   }
   defaultInputValue=""
@@ -50,6 +61,7 @@ exports[`FacetedSelect should suggest values for selected key 1`] = `
   components={
     Object {
       "Input": [Function],
+      "MultiValueLabel": [Function],
     }
   }
   defaultInputValue=""
