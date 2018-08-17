@@ -1,7 +1,6 @@
 import React from 'react';
 import FacetedSelect from '../components/FacetedSelect';
-import {components} from 'react-select';
-import {shallow, mount} from "enzyme";
+import {shallow} from "enzyme";
 import OptionTypes from "../model/OptionTypes";
 
 const getFirstNameSuggestions = () => {
