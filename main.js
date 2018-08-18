@@ -34691,6 +34691,22 @@ var FacetedSelect = function (_React$Component) {
                 null,
                 _react2.default.createElement(_reactSelect.components.Input, props)
             );
+        }, _this.renderCustomLabel = function (props) {
+            var labelText = props.children;
+            var option = labelText.split(FILTER_SEPARATOR);
+            var key = option[0];
+            var value = option[1];
+            return _react2.default.createElement(
+                _reactSelect.components.MultiValueLabel,
+                props,
+                _react2.default.createElement(
+                    'strong',
+                    null,
+                    key
+                ),
+                ' : ',
+                value
+            );
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
@@ -34702,6 +34718,9 @@ var FacetedSelect = function (_React$Component) {
     /*
      * See https://react-select.com/props#replacing-components
      */
+
+
+    // render the option key as bold in label
 
 
     _createClass(FacetedSelect, [{
@@ -34717,7 +34736,8 @@ var FacetedSelect = function (_React$Component) {
             return _react2.default.createElement(_Creatable2.default, {
                 isMulti: true,
                 components: {
-                    Input: this.renderCustomInput
+                    Input: this.renderCustomInput,
+                    MultiValueLabel: this.renderCustomLabel
                 },
                 placeholder: 'Search...',
                 isClearable: false,

@@ -28,44 +28,35 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-/*
-Constants for 'actions' associated with onChange in react-select
- */
-var ReactSelectActions = {
-    SELECT_OPTION: 'select-option',
-    CREATE_OPTION: 'create-option',
-    REMOVE_VAL: 'remove-value',
-    POP_VALUE: 'pop-value'
-};
 var FILTER_SEPARATOR = ':';
 
-var FacetedSelect = function (_React$Component) {
-    _inherits(FacetedSelect, _React$Component);
+var FacetedInput = function (_React$Component) {
+    _inherits(FacetedInput, _React$Component);
 
-    function FacetedSelect() {
+    function FacetedInput() {
         var _ref;
 
         var _temp, _this, _ret;
 
-        _classCallCheck(this, FacetedSelect);
+        _classCallCheck(this, FacetedInput);
 
         for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
             args[_key] = arguments[_key];
         }
 
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = FacetedSelect.__proto__ || Object.getPrototypeOf(FacetedSelect)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = FacetedInput.__proto__ || Object.getPrototypeOf(FacetedInput)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
             inputValue: '',
-            selectedValues: []
-        }, _this.buildOptions = function () {
+            value: []
+        }, _this.buildOptions = function (state, props) {
             var options = _this.props.options;
             var inputValue = _this.state.inputValue;
+            // TODO RF - May need to maintain more properties
 
             if (inputValue.includes(FILTER_SEPARATOR)) {
-                var key = inputValue.split(FILTER_SEPARATOR)[0];
+                // extract the key
                 var option = options.find(function (o) {
-                    return o.label === key;
+                    return o.label === inputValue.split(FILTER_SEPARATOR)[0];
                 });
-                // TODO RF - if no option is matched what do?
                 var suggestions = option.getSuggestions ? option.getSuggestions() : [];
                 return suggestions.map(function (suggestedValue) {
                     return {
@@ -85,31 +76,30 @@ var FacetedSelect = function (_React$Component) {
             }
         }, _this.handleChange = function (selectedValues, meta) {
             var inputValue = _this.state.inputValue;
+            // TODO RF - handle meta-action "create-option"
 
             var inputHasSeparator = inputValue && inputValue.includes(FILTER_SEPARATOR);
-            // TODO RF - create-option with no input separator
-            if (meta.action === ReactSelectActions.REMOVE_VAL || meta.action === ReactSelectActions.POP_VALUE) {
+            if (meta.action === 'remove-value' || meta.action === 'pop-value') {
                 _this.setState({
-                    selectedValues: selectedValues
+                    value: selectedValues
                 });
-            } else if ((meta.action === ReactSelectActions.SELECT_OPTION || meta.action === ReactSelectActions.CREATE_OPTION) && inputHasSeparator) {
+            } else if ((meta.action === 'select-option' || meta.action === 'create-option') && inputHasSeparator) {
                 // selected a suggested value
                 var newSelectedValue = selectedValues[selectedValues.length - 1];
-                if (meta.action === ReactSelectActions.CREATE_OPTION) {
-                    // No originalOption available - don't modify newSelectedValue
+                if (meta.action === 'create-option') {
+                    // No originalOption available
+                    newSelectedValue.label = '' + newSelectedValue.label;
+                    newSelectedValue.value = '' + newSelectedValue.value;
                 } else {
-                    newSelectedValue.label = '' + newSelectedValue.originalOption.label + FILTER_SEPARATOR + newSelectedValue.label;
-                    newSelectedValue.value = '' + newSelectedValue.originalOption.label + FILTER_SEPARATOR + newSelectedValue.label;
+                    newSelectedValue.label = newSelectedValue.originalOption.label + ': ' + newSelectedValue.label;
+                    newSelectedValue.value = newSelectedValue.originalOption.value + ': ' + newSelectedValue.value;
                 }
-                // TODO RF - refactor splitting
-                _this.props.onOptionSelected({
-                    label: newSelectedValue.label.split(FILTER_SEPARATOR)[0],
-                    value: newSelectedValue.label.split(FILTER_SEPARATOR)[1]
-                });
+                // TODO RF - Change value
+                console.log('Selected suggested value');
                 _this.setState({
-                    selectedValues: selectedValues
+                    value: selectedValues
                 });
-            } else if (meta.action === ReactSelectActions.SELECT_OPTION && !inputHasSeparator) {
+            } else if (meta.action === 'select-option' && !inputHasSeparator) {
                 // selected a suggested key
                 var selectedOption = selectedValues[selectedValues.length - 1];
                 _this.setState({ inputValue: selectedOption.label + ':' });
@@ -125,27 +115,29 @@ var FacetedSelect = function (_React$Component) {
                 null,
                 _react2.default.createElement(_reactSelect.components.Input, props)
             );
+        }, _this.filterOption = function (option, inputValue) {
+            if (!inputValue) return true;
+            var searchTerm = inputValue.toLowerCase();
+            if (searchTerm.includes(FILTER_SEPARATOR)) {
+                searchTerm = searchTerm.split(FILTER_SEPARATOR)[1];
+            }
+            return option.label.toLowerCase().includes(searchTerm);
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
-
-    /*
-    Only static for easy testing, fix?
-     */
-
 
     /*
      * See https://react-select.com/props#replacing-components
      */
 
 
-    _createClass(FacetedSelect, [{
+    _createClass(FacetedInput, [{
         key: 'render',
         value: function render() {
-            var options = this.buildOptions();
+            var options = this.buildOptions(this.state, this.props);
 
             var _state = this.state,
                 inputValue = _state.inputValue,
-                selectedValues = _state.selectedValues;
+                value = _state.value;
 
 
             return _react2.default.createElement(_Creatable2.default, {
@@ -153,40 +145,26 @@ var FacetedSelect = function (_React$Component) {
                 components: {
                     Input: this.renderCustomInput
                 },
-                placeholder: 'Search...',
                 isClearable: false,
                 closeMenuOnSelect: false,
-                filterOption: FacetedSelect.filterOption,
+                filterOption: this.filterOption,
                 onChange: this.handleChange,
                 options: options,
                 onInputChange: this.handleInputChange,
                 inputValue: inputValue,
-                value: selectedValues,
-                formatCreateLabel: function formatCreateLabel(inputValue) {
-                    return inputValue;
-                }
+                value: value
             });
         }
     }]);
 
-    return FacetedSelect;
+    return FacetedInput;
 }(_react2.default.Component);
 
-FacetedSelect.filterOption = function (option, inputValue) {
-    if (!inputValue) return true;
-    var searchTerm = inputValue.toLowerCase();
-    if (searchTerm.includes(FILTER_SEPARATOR)) {
-        searchTerm = searchTerm.split(FILTER_SEPARATOR)[1];
-    }
-    return option.label.toLowerCase().includes(searchTerm);
-};
-
-FacetedSelect.propTypes = {
+FacetedInput.propTypes = {
     options: _propTypes2.default.arrayOf(_propTypes2.default.shape({
         label: _propTypes2.default.string.isRequired,
-        type: _propTypes2.default.string.isRequired, // TODO RF - Not currently used (needed for dates tho)
+        type: _propTypes2.default.string.isRequired, // TODO RF - May be redundant
         getSuggestions: _propTypes2.default.func
-    })).isRequired,
-    onOptionSelected: _propTypes2.default.func.isRequired
+    })).isRequired
 };
-exports.default = FacetedSelect;
+exports.default = FacetedInput;

@@ -2,7 +2,6 @@
 
 exports[`FacetedSelect should suggest options for keys 1`] = `
 <StateManager
-  blurInputOnSelect={false}
   closeMenuOnSelect={false}
   components={
     Object {
@@ -45,7 +44,6 @@ exports[`FacetedSelect should suggest options for keys 1`] = `
 
 exports[`FacetedSelect should suggest values for selected key 1`] = `
 <StateManager
-  blurInputOnSelect={false}
   closeMenuOnSelect={false}
   components={
     Object {

@@ -104,7 +104,7 @@ describe('FacetedSelect #handleChange', function () {
 
     it('should modify last entry in selectedValues with labels from original option', function () {
         var stubSelectedValues = [{
-            label: 'I should be ignored'
+            foo: 'I should be ignored'
         }, {
             label: 'Jane',
             originalOption: {
@@ -122,9 +122,8 @@ describe('FacetedSelect #handleChange', function () {
 
         expect(onSelectOptionMock).toHaveBeenCalled();
         var onSelectOptionCall = onSelectOptionMock.mock.calls[0][0];
-        expect(onSelectOptionCall.length).toEqual(2);
-        expect(onSelectOptionCall[1].label).toEqual('First Name');
-        expect(onSelectOptionCall[1].value).toEqual('Jane');
+        expect(onSelectOptionCall.label).toEqual('First Name');
+        expect(onSelectOptionCall.value).toEqual('Jane');
     });
 });
 
