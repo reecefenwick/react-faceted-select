@@ -52,6 +52,14 @@ describe('FacetedSelect', () => {
         expect(wrapper).toMatchSnapshot();
     });
 
+    it('should display empty select when no initial values', () => {
+        const wrapper = shallow(<FacetedSelect
+            options={options}
+            onOptionsChanged={() => {}}
+        />);
+        expect(wrapper).toMatchSnapshot();
+    });
+
     it('should suggest values for selected key', () => {
         const wrapper = shallow(<FacetedSelect
             options={options}
