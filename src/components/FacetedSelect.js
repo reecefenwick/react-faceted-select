@@ -136,10 +136,6 @@ class FacetedSelect extends React.Component {
         )
     };
 
-    componentDidMount(){
-        this.onOptionsChanged(this.state.selectedValues);
-    }
-
     render() {
         const options = this.buildOptions();
 

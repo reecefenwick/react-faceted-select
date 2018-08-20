@@ -39,7 +39,14 @@ exports[`FacetedSelect should suggest options for keys 1`] = `
     ]
   }
   placeholder="Search..."
-  value={Array []}
+  value={
+    Array [
+      Object {
+        "label": "First Name:Strangelove",
+        "value": "First Name:Strangelove",
+      },
+    ]
+  }
 />
 `;
 
@@ -94,6 +101,13 @@ exports[`FacetedSelect should suggest values for selected key 1`] = `
     ]
   }
   placeholder="Search..."
-  value={Array []}
+  value={
+    Array [
+      Object {
+        "label": "First Name:Strangelove",
+        "value": "First Name:Strangelove",
+      },
+    ]
+  }
 />
 `;

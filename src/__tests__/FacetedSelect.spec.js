@@ -1,6 +1,6 @@
 import React from 'react';
 import FacetedSelect from '../components/FacetedSelect';
-import {shallow} from "enzyme";
+import { shallow } from "enzyme";
 import OptionTypes from "../model/OptionTypes";
 
 const getFirstNameSuggestions = () => {
@@ -47,6 +47,7 @@ describe('FacetedSelect', () => {
         const wrapper = shallow(<FacetedSelect
             options={options}
             onOptionsChanged={() => {}}
+            initialValues={initialValues}
         />);
         expect(wrapper).toMatchSnapshot();
     });
@@ -55,21 +56,11 @@ describe('FacetedSelect', () => {
         const wrapper = shallow(<FacetedSelect
             options={options}
             onOptionsChanged={() => {}}
+            initialValues={initialValues}
         />);
         wrapper.instance().handleInputChange('First Name:');
         wrapper.update();
         expect(wrapper).toMatchSnapshot();
-    });
-
-    it('should call onOptionsChanged with default initial values', () => {
-        let onOptionsChangedMock = jest.fn();
-        const wrapper = shallow(<FacetedSelect
-            options={options}
-            onOptionsChanged={onOptionsChangedMock}
-        />);
-        const expectedOptionsChangedCall = [];
-        expect(onOptionsChangedMock).toHaveBeenCalledTimes(1);
-        expect(onOptionsChangedMock).toHaveBeenCalledWith(expectedOptionsChangedCall);
     });
 
     // When key input that matches no options e.g. 'Unknown:'
@@ -86,14 +77,7 @@ describe('FacetedSelect #handleChange', () => {
         wrapper = shallow(<FacetedSelect
             options={options}
             onOptionsChanged={onOptionsChangedMock}
-            initialValues={initialValues}
         />);
-    });
-
-    it('should call onOptionsChanged with initial values', () => {
-        const expectedOptionsChangedCall = [{"label": "First Name", "value": "Strangelove"}];
-        expect(onOptionsChangedMock).toHaveBeenCalledTimes(1);
-        expect(onOptionsChangedMock).toHaveBeenCalledWith(expectedOptionsChangedCall);
     });
 
     it('should override selectedValues on remove-value', () => {
@@ -116,7 +100,7 @@ describe('FacetedSelect #handleChange', () => {
         wrapper.update();
         wrapper.instance().handleChange(stubSelectedValues, {action: 'select-option'});
         expect(wrapper.state().inputValue).toEqual('First Name:');
-        expect(onOptionsChangedMock).toHaveBeenCalledTimes(1); //Is called already due to onMount
+        expect(onOptionsChangedMock).toHaveBeenCalledTimes(0);
     });
 
     it('should not modify selectedValues when entering value not suggested', () => {
@@ -153,7 +137,7 @@ describe('FacetedSelect #handleChange', () => {
         expect(state.selectedValues[1]).toEqual(stubSelectedValues[1]);
 
         expect(onOptionsChangedMock).toHaveBeenCalled();
-        const onSelectOptionCall = onOptionsChangedMock.mock.calls[1][0]; //is called once already due to onMount
+        const onSelectOptionCall = onOptionsChangedMock.mock.calls[0][0];
         expect(onSelectOptionCall.length).toEqual(2);
         expect(onSelectOptionCall[1].label).toEqual('First Name');
         expect(onSelectOptionCall[1].value).toEqual('Jane');
