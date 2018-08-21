@@ -39,16 +39,18 @@ class FacetedSelect extends React.Component {
         initialValues: PropTypes.arrayOf(PropTypes.object)
     };
 
+    static defaultProps = {
+        initialValues: []
+    };
+
     state = {
         inputValue: '',
-        selectedValues: this.props.initialValues
-            ? this.props.initialValues.map((filter) => {
-                return {
-                    label: filter.label + FILTER_SEPARATOR + filter.value,
-                    value: filter.label + FILTER_SEPARATOR + filter.value
-                }
-            })
-            : []
+        selectedValues: this.props.initialValues.map((filter) => {
+            return {
+                label: filter.label + FILTER_SEPARATOR + filter.value,
+                value: filter.label + FILTER_SEPARATOR + filter.value
+            }
+        })
     };
 
     buildOptions = () => {
