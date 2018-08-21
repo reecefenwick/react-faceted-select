@@ -71,6 +71,16 @@ describe('FacetedSelect', () => {
         expect(wrapper).toMatchSnapshot();
     });
 
+    it('should render label with bold key', () => {
+        const wrapper = shallow(<FacetedSelect
+            options={options}
+            onOptionsChanged={() => {}}
+        />);
+        const multiValueLabel = shallow(
+            wrapper.instance().renderCustomLabel({ children: 'First Name: Jane'}));
+        expect(multiValueLabel).toMatchSnapshot();
+    });
+
     // When key input that matches no options e.g. 'Unknown:'
 
     // Should call this.props.onSelectOption when adding item and input is complete

@@ -138,6 +138,19 @@ class FacetedSelect extends React.Component {
         )
     };
 
+    // render the option key as bold in label
+    renderCustomLabel = (props) => {
+        const labelText = props.children;
+        const option = labelText.split(FILTER_SEPARATOR);
+        const key = option[0];
+        const value = option[1];
+        return (
+            <components.MultiValueLabel {...props}>
+                <strong>{key}</strong> : {value}
+            </components.MultiValueLabel>
+        );
+    };
+
     render() {
         const options = this.buildOptions();
 
@@ -147,7 +160,8 @@ class FacetedSelect extends React.Component {
             <CreatableSelect
                 isMulti
                 components={{
-                    Input: this.renderCustomInput
+                    Input: this.renderCustomInput,
+                    MultiValueLabel: this.renderCustomLabel
                 }}
                 placeholder="Search..."
                 isClearable={false}
