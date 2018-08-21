@@ -119,10 +119,12 @@ var getLastNameSuggestions = function getLastNameSuggestions() {
 };
 
 var onOptionsChanged = function onOptionsChanged(selectedOptions) {
-    console.group('onOptionsChanged - new option');
-    console.log('option.label: %s', selectedOptions[selectedOptions.length - 1].label);
-    console.log('option.value: %s', selectedOptions[selectedOptions.length - 1].value);
-    console.groupEnd();
+    if (selectedOptions.length) {
+        console.group('onOptionsChanged - new option');
+        console.log('option.label: %s', selectedOptions[selectedOptions.length - 1].label);
+        console.log('option.value: %s', selectedOptions[selectedOptions.length - 1].value);
+        console.groupEnd();
+    }
 };
 
 var OptionGroups = {
@@ -132,6 +134,7 @@ var OptionGroups = {
 
 var App = function App() {
     return _react2.default.createElement(_src.FacetedSelect, {
+        initialValues: [{ label: "First Name", value: "Jane" }],
         onOptionsChanged: onOptionsChanged,
         options: [{
             group: OptionGroups.PERSON_ATTRS,
@@ -34616,7 +34619,12 @@ var FacetedSelect = function (_React$Component) {
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = FacetedSelect.__proto__ || Object.getPrototypeOf(FacetedSelect)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
             inputValue: '',
-            selectedValues: []
+            selectedValues: _this.props.initialValues.map(function (filter) {
+                return {
+                    label: filter.label + FILTER_SEPARATOR + filter.value,
+                    value: filter.label + FILTER_SEPARATOR + filter.value
+                };
+            })
         }, _this.buildOptions = function () {
             var options = _this.props.options;
             var inputValue = _this.state.inputValue;
@@ -34775,7 +34783,11 @@ FacetedSelect.propTypes = {
         type: _propTypes2.default.string.isRequired, // TODO RF - Not currently used (needed for dates tho)
         getSuggestions: _propTypes2.default.func
     })).isRequired,
-    onOptionsChanged: _propTypes2.default.func.isRequired
+    onOptionsChanged: _propTypes2.default.func.isRequired,
+    initialValues: _propTypes2.default.arrayOf(_propTypes2.default.object)
+};
+FacetedSelect.defaultProps = {
+    initialValues: []
 };
 exports.default = FacetedSelect;
 
