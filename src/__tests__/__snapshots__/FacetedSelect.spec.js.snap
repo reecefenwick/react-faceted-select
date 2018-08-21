@@ -1,5 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`FacetedSelect should display empty select when no initial values 1`] = `
+<StateManager
+  blurInputOnSelect={false}
+  closeMenuOnSelect={false}
+  components={
+    Object {
+      "Input": [Function],
+      "MultiValueLabel": [Function],
+    }
+  }
+  defaultInputValue=""
+  defaultMenuIsOpen={false}
+  defaultValue={null}
+  filterOption={[Function]}
+  formatCreateLabel={[Function]}
+  inputValue=""
+  isClearable={false}
+  isMulti={true}
+  onChange={[Function]}
+  onInputChange={[Function]}
+  options={
+    Array [
+      Object {
+        "getSuggestions": [Function],
+        "label": "First Name",
+        "value": "First Name",
+      },
+      Object {
+        "getSuggestions": [Function],
+        "label": "Last Name",
+        "value": "Last Name",
+      },
+      Object {
+        "getSuggestions": undefined,
+        "label": "Description",
+        "value": "Description",
+      },
+    ]
+  }
+  placeholder="Search..."
+  value={Array []}
+/>
+`;
+
 exports[`FacetedSelect should render label with bold key 1`] = `
 <div>
   <strong>
@@ -50,7 +94,14 @@ exports[`FacetedSelect should suggest options for keys 1`] = `
     ]
   }
   placeholder="Search..."
-  value={Array []}
+  value={
+    Array [
+      Object {
+        "label": "First Name:Strangelove",
+        "value": "First Name:Strangelove",
+      },
+    ]
+  }
 />
 `;
 
@@ -106,6 +157,13 @@ exports[`FacetedSelect should suggest values for selected key 1`] = `
     ]
   }
   placeholder="Search..."
-  value={Array []}
+  value={
+    Array [
+      Object {
+        "label": "First Name:Strangelove",
+        "value": "First Name:Strangelove",
+      },
+    ]
+  }
 />
 `;

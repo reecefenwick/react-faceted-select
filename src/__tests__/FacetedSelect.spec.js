@@ -1,6 +1,6 @@
 import React from 'react';
 import FacetedSelect from '../components/FacetedSelect';
-import {shallow} from "enzyme";
+import { shallow } from "enzyme";
 import OptionTypes from "../model/OptionTypes";
 
 const getFirstNameSuggestions = () => {
@@ -35,10 +35,27 @@ const options = [
     }
 ];
 
+const initialValues = [
+    {
+        label: "First Name",
+        value: "Strangelove"
+    }
+];
+
 describe('FacetedSelect', () => {
     it('should suggest options for keys', () => {
         const wrapper = shallow(<FacetedSelect
             options={options}
+            onOptionsChanged={() => {}}
+            initialValues={initialValues}
+        />);
+        expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should display empty select when no initial values', () => {
+        const wrapper = shallow(<FacetedSelect
+            options={options}
+            onOptionsChanged={() => {}}
         />);
         expect(wrapper).toMatchSnapshot();
     });
@@ -46,6 +63,8 @@ describe('FacetedSelect', () => {
     it('should suggest values for selected key', () => {
         const wrapper = shallow(<FacetedSelect
             options={options}
+            onOptionsChanged={() => {}}
+            initialValues={initialValues}
         />);
         wrapper.instance().handleInputChange('First Name:');
         wrapper.update();
@@ -99,7 +118,7 @@ describe('FacetedSelect #handleChange', () => {
         wrapper.update();
         wrapper.instance().handleChange(stubSelectedValues, {action: 'select-option'});
         expect(wrapper.state().inputValue).toEqual('First Name:');
-        expect(onOptionsChangedMock).not.toHaveBeenCalled();
+        expect(onOptionsChangedMock).toHaveBeenCalledTimes(0);
     });
 
     it('should not modify selectedValues when entering value not suggested', () => {
