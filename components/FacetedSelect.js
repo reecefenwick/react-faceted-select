@@ -55,7 +55,12 @@ var FacetedSelect = function (_React$Component) {
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = FacetedSelect.__proto__ || Object.getPrototypeOf(FacetedSelect)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
             inputValue: '',
-            selectedValues: []
+            selectedValues: _this.props.initialValues.map(function (filter) {
+                return {
+                    label: filter.label + FILTER_SEPARATOR + filter.value,
+                    value: filter.label + FILTER_SEPARATOR + filter.value
+                };
+            })
         }, _this.buildOptions = function () {
             var options = _this.props.options;
             var inputValue = _this.state.inputValue;
@@ -130,6 +135,22 @@ var FacetedSelect = function (_React$Component) {
                 null,
                 _react2.default.createElement(_reactSelect.components.Input, props)
             );
+        }, _this.renderCustomLabel = function (props) {
+            var labelText = props.children;
+            var option = labelText.split(FILTER_SEPARATOR);
+            var key = option[0];
+            var value = option[1];
+            return _react2.default.createElement(
+                _reactSelect.components.MultiValueLabel,
+                props,
+                _react2.default.createElement(
+                    'strong',
+                    null,
+                    key
+                ),
+                ' : ',
+                value
+            );
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
@@ -141,6 +162,9 @@ var FacetedSelect = function (_React$Component) {
     /*
      * See https://react-select.com/props#replacing-components
      */
+
+
+    // render the option key as bold in label
 
 
     _createClass(FacetedSelect, [{
@@ -156,7 +180,8 @@ var FacetedSelect = function (_React$Component) {
             return _react2.default.createElement(_Creatable2.default, {
                 isMulti: true,
                 components: {
-                    Input: this.renderCustomInput
+                    Input: this.renderCustomInput,
+                    MultiValueLabel: this.renderCustomLabel
                 },
                 placeholder: 'Search...',
                 isClearable: false,
@@ -194,6 +219,10 @@ FacetedSelect.propTypes = {
         type: _propTypes2.default.string.isRequired, // TODO RF - Not currently used (needed for dates tho)
         getSuggestions: _propTypes2.default.func
     })).isRequired,
-    onOptionsChanged: _propTypes2.default.func.isRequired
+    onOptionsChanged: _propTypes2.default.func.isRequired,
+    initialValues: _propTypes2.default.arrayOf(_propTypes2.default.object)
+};
+FacetedSelect.defaultProps = {
+    initialValues: []
 };
 exports.default = FacetedSelect;

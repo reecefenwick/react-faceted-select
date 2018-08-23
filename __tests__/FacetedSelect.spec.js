@@ -37,21 +37,47 @@ var options = [{
     type: _OptionTypes2.default.Text
 }];
 
+var initialValues = [{
+    label: "First Name",
+    value: "Strangelove"
+}];
+
 describe('FacetedSelect', function () {
     it('should suggest options for keys', function () {
         var wrapper = (0, _enzyme.shallow)(_react2.default.createElement(_FacetedSelect2.default, {
-            options: options
+            options: options,
+            onOptionsChanged: function onOptionsChanged() {},
+            initialValues: initialValues
+        }));
+        expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should display empty select when no initial values', function () {
+        var wrapper = (0, _enzyme.shallow)(_react2.default.createElement(_FacetedSelect2.default, {
+            options: options,
+            onOptionsChanged: function onOptionsChanged() {}
         }));
         expect(wrapper).toMatchSnapshot();
     });
 
     it('should suggest values for selected key', function () {
         var wrapper = (0, _enzyme.shallow)(_react2.default.createElement(_FacetedSelect2.default, {
-            options: options
+            options: options,
+            onOptionsChanged: function onOptionsChanged() {},
+            initialValues: initialValues
         }));
         wrapper.instance().handleInputChange('First Name:');
         wrapper.update();
         expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render label with bold key', function () {
+        var wrapper = (0, _enzyme.shallow)(_react2.default.createElement(_FacetedSelect2.default, {
+            options: options,
+            onOptionsChanged: function onOptionsChanged() {}
+        }));
+        var multiValueLabel = (0, _enzyme.shallow)(wrapper.instance().renderCustomLabel({ children: 'First Name: Jane' }));
+        expect(multiValueLabel).toMatchSnapshot();
     });
 
     // When key input that matches no options e.g. 'Unknown:'
@@ -91,7 +117,7 @@ describe('FacetedSelect #handleChange', function () {
         wrapper.update();
         wrapper.instance().handleChange(stubSelectedValues, { action: 'select-option' });
         expect(wrapper.state().inputValue).toEqual('First Name:');
-        expect(onOptionsChangedMock).not.toHaveBeenCalled();
+        expect(onOptionsChangedMock).toHaveBeenCalledTimes(0);
     });
 
     it('should not modify selectedValues when entering value not suggested', function () {
