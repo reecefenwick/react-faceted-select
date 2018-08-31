@@ -34660,6 +34660,9 @@ var FacetedSelect = function (_React$Component) {
                     value: val.label.split(FILTER_SEPARATOR)[1]
                 };
             }));
+        }, _this.hideSelectSuggestions = function () {
+            _this.creatableSelectRef.blur();
+            _this.creatableSelectRef.focus();
         }, _this.handleChange = function (selectedValues, meta) {
             var inputValue = _this.state.inputValue;
 
@@ -34683,6 +34686,7 @@ var FacetedSelect = function (_React$Component) {
                     selectedValues: selectedValues
                 });
                 _this.onOptionsChanged(selectedValues);
+                _this.hideSelectSuggestions();
             } else if (meta.action === ReactSelectActions.SELECT_OPTION && !inputHasSeparator) {
                 // selected a suggested key
                 var selectedOption = selectedValues[selectedValues.length - 1];
@@ -34692,6 +34696,8 @@ var FacetedSelect = function (_React$Component) {
             }
         }, _this.handleInputChange = function (inputValue) {
             _this.setState({ inputValue: inputValue });
+        }, _this.bindCreatableSelectRef = function (ref) {
+            _this.creatableSelectRef = ref;
         }, _this.renderCustomInput = function (props) {
             // if type 'date' render date-picker
             return _react2.default.createElement(
@@ -34742,6 +34748,7 @@ var FacetedSelect = function (_React$Component) {
 
 
             return _react2.default.createElement(_Creatable2.default, {
+                ref: this.bindCreatableSelectRef,
                 isMulti: true,
                 components: {
                     Input: this.renderCustomInput,
