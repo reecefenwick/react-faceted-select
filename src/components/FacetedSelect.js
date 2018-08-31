@@ -91,6 +91,11 @@ class FacetedSelect extends React.Component {
         })));
     };
 
+    hideSelectSuggestions = () => {
+        this.creatableSelectRef.blur();
+        this.creatableSelectRef.focus();
+    };
+
     handleChange = (selectedValues, meta) => {
         const {inputValue} = this.state;
         const inputHasSeparator = inputValue.includes(FILTER_SEPARATOR);
@@ -113,6 +118,7 @@ class FacetedSelect extends React.Component {
                 selectedValues: selectedValues
             });
             this.onOptionsChanged(selectedValues);
+            this.hideSelectSuggestions();
         } else if (meta.action === ReactSelectActions.SELECT_OPTION && !inputHasSeparator) {
             // selected a suggested key
             const selectedOption = selectedValues[selectedValues.length - 1];
@@ -124,6 +130,10 @@ class FacetedSelect extends React.Component {
 
     handleInputChange = (inputValue) => {
         this.setState({inputValue});
+    };
+
+    bindCreatableSelectRef = (ref) => {
+        this.creatableSelectRef = ref;
     };
 
     /*
@@ -158,6 +168,7 @@ class FacetedSelect extends React.Component {
 
         return (
             <CreatableSelect
+                ref={this.bindCreatableSelectRef}
                 isMulti
                 components={{
                     Input: this.renderCustomInput,

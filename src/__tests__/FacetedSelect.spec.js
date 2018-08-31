@@ -3,6 +3,13 @@ import FacetedSelect from '../components/FacetedSelect';
 import { shallow } from "enzyme";
 import OptionTypes from "../model/OptionTypes";
 
+const mockCreatableSelectRefMock = () => {
+    return {
+        blur: jest.fn(),
+        focus: jest.fn()
+    }
+};
+
 const getFirstNameSuggestions = () => {
     return [
         'John',
@@ -81,21 +88,24 @@ describe('FacetedSelect', () => {
         expect(multiValueLabel).toMatchSnapshot();
     });
 
-    // When key input that matches no options e.g. 'Unknown:'
+    // TODO RF - When key input that matches no options e.g. 'Search:the entered value'
 
-    // Should call this.props.onSelectOption when adding item and input is complete
 });
 
 describe('FacetedSelect #handleChange', () => {
     let wrapper;
     let onOptionsChangedMock;
+    let creatableSelectRefMock;
 
     beforeEach(() => {
         onOptionsChangedMock = jest.fn();
+        creatableSelectRefMock = mockCreatableSelectRefMock();
         wrapper = shallow(<FacetedSelect
             options={options}
             onOptionsChanged={onOptionsChangedMock}
         />);
+        wrapper.instance().bindCreatableSelectRef(creatableSelectRefMock);
+        wrapper = wrapper.update();
     });
 
     it('should override selectedValues on remove-value', () => {
@@ -131,6 +141,8 @@ describe('FacetedSelect #handleChange', () => {
         expect(state.inputValue).toEqual('First Name:Jane');
         expect(state.selectedValues).toEqual(stubSelectedValues);
         expect(onOptionsChangedMock).toHaveBeenCalled();
+        expect(creatableSelectRefMock.blur).toHaveBeenCalled();
+        expect(creatableSelectRefMock.focus).toHaveBeenCalled();
     });
 
     it('should modify last entry in selectedValues with labels from original option', () => {
@@ -149,6 +161,9 @@ describe('FacetedSelect #handleChange', () => {
         ];
         wrapper.setState({inputValue: 'First Name:Jane'});
         wrapper.instance().handleChange(stubSelectedValues, {action: 'select-option'});
+
+        expect(creatableSelectRefMock.blur).toHaveBeenCalled();
+        expect(creatableSelectRefMock.focus).toHaveBeenCalled();
 
         const state = wrapper.state();
         expect(state.inputValue).toEqual('First Name:Jane');
