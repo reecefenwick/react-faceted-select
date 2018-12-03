@@ -59,9 +59,12 @@ class FacetedSelect extends React.Component {
         if (inputValue.includes(FILTER_SEPARATOR)) {
             const key = inputValue.split(FILTER_SEPARATOR)[0];
             const option = options.find(o => {
-                return o.label === key
+                return o.label.toLowerCase() === key.toLowerCase()
             });
             // TODO RF - if no option is matched what do?
+            if (!option) { // TODO CT - Any better solution? Without this the whole page breaks
+                return [];
+            }
             const suggestions = option.getSuggestions ? option.getSuggestions() : [];
             return suggestions
                 .map(suggestedValue => {
